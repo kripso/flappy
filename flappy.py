@@ -3,9 +3,10 @@ import tkinter, random,time
 class game():
 	def __init__(self):
 		self.canvasWidth = 400
-		self.canvasHeight = 600
+		self.canvasHeight = 500
 		self.canvas=tkinter.Canvas(height=self.canvasHeight,width=self.canvasWidth,bg='white')
 		self.canvas.pack()
+
 		self.move=1
 		self.pipes_to_win=10
 
@@ -22,15 +23,18 @@ class game():
 		#sirka trubok
 		x1=200
 		x2=280
+
 		for i in range(self.pipes_to_win):
 			#rozmedzie vysok
-			r=random.randrange(self.canvasHeight/2-50,self.canvasHeight/2+50, 20)
+			r=random.randrange(self.canvasHeight/2-55,self.canvasHeight/2+55, 10)
 			#nove suradnice trubok xsove
 			x=[x1,x2]
 			#nove suradnice trubok ysove z hora
 			y=[0,r]
 			#nove suradnice trubok ysove z dola
-			y1=[self.canvasHeight+20,r+80]
+			#V je vzdialenost medzi trubkami
+			v=80
+			y1=[self.canvasHeight+20,r+v]
 			#trubky
 			self.canvas.create_rectangle(x[0],y[0],x[1],y[1],fill='light green',tags='pipes')
 			self.canvas.create_rectangle(x[0],y1[0],x[1],y1[1],fill='light green',tags='pipes')
