@@ -2,9 +2,10 @@ import tkinter, random,time
 
 class game():
 	def __init__(self):
-		self.canvas=tkinter.Canvas(height=400,width=400,bg='white')
+		self.canvasWidth = 400
+		self.canvasHeight = 600
+		self.canvas=tkinter.Canvas(height=self.canvasHeight,width=self.canvasWidth,bg='white')
 		self.canvas.pack()
-
 		self.move=1
 		self.pipes_to_win=10
 
@@ -21,22 +22,22 @@ class game():
 		#sirka trubok
 		x1=200
 		x2=280
-
 		for i in range(self.pipes_to_win):
 			#rozmedzie vysok
-			r=random.randrange(110, 250, 20)
+			r=random.randrange(self.canvasHeight/2-50,self.canvasHeight/2+50, 20)
 			#nove suradnice trubok xsove
 			x=[x1,x2]
 			#nove suradnice trubok ysove z hora
 			y=[0,r]
 			#nove suradnice trubok ysove z dola
-			y1=[420,r+80]
+			y1=[self.canvasHeight+20,r+80]
 			#trubky
-			self.canvas.create_rectangle(x[0],y[0],x[1],y[1],tags='pipes')
-			self.canvas.create_rectangle(x[0],y1[0],x[1],y1[1],tags='pipes')
+			self.canvas.create_rectangle(x[0],y[0],x[1],y[1],fill='light green',tags='pipes')
+			self.canvas.create_rectangle(x[0],y1[0],x[1],y1[1],fill='light green',tags='pipes')
 			#o kolko sa posunu do strany
 			x1+=180
 			x2+=180
+
 	#pohyb flappyho dohora
 	def bird_move(self,event):
 		self.canvas.move('bird',0,-20)
@@ -47,7 +48,7 @@ class game():
 			self.canvas.after(80,self.bird_fall)
 	#flappy
 	def bird(self):
-		self.canvas.create_oval(10,180,50,210,tags='bird')
+		self.canvas.create_oval(10,self.canvasHeight/2-15,50,self.canvasHeight/2+15,fill='yellow',tags='bird')
 	#pohyb trubiek
 	def pipes_move(self):
 		if self.move==1:
