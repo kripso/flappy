@@ -1,0 +1,1 @@
+priečinok bez názvu
