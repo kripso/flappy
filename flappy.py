@@ -33,11 +33,15 @@ class game():
 			y=[0,r]
 			#nove suradnice trubok ysove z dola
 			#V je vzdialenost medzi trubkami
-			v=80
+			v=100
 			y1=[self.canvasHeight+20,r+v]
 			#trubky
 			self.canvas.create_rectangle(x[0],y[0],x[1],y[1],fill='light green',tags='pipes')
-			self.canvas.create_rectangle(x[0],y1[0],x[1],y1[1],fill='light green',tags='pipes')
+			self.canvas.create_rectangle(x[0],y1[0],x[1],y1[1],fill='light green',tags='pipes')	
+
+			if i == self.pipes_to_win-1:		
+				self.canvas.create_line(x[1],y[0],x[1],self.canvasWidth,fill='white', width=1, tags= 'line')
+				self.canvas.tag_lower('line')
 			#o kolko sa posunu do strany
 			x1+=180
 			x2+=180
@@ -58,14 +62,21 @@ class game():
 		if self.move==1:
 			
 			self.canvas.move('pipes',-2,0)
+			self.canvas.move('line',-2,0)
 			self.canvas.after(30,self.pipes_move )
 
 			tagged_objects = self.canvas.find_withtag('pipes')
+			line_objects = self.canvas.find_withtag('line')
 			overlapping_objects = self.canvas.find_overlapping(*self.canvas.coords('bird'))
 
 			for item in overlapping_objects:
 				if item in tagged_objects:
 					self.move=0
+					self.canvas.create_text(self.canvasWidth/2-15,self.canvasHeight/2,text='YOU LOST!',font='Arial 30 bold', fill='black')
+
+				elif item in line_objects:
+					self.move=0
+					self.canvas.create_text(self.canvasWidth/2-15,self.canvasHeight/2,text='YOU WON!', fill='black')
 
 		self.canvas.update()
 
